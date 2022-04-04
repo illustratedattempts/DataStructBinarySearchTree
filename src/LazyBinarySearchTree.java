@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class LazyBinarySearchTree
 {
-    private class TreeNode // Remember to RETURN this to PRIVATE
+    private class TreeNode
     {
         int key;
         TreeNode leftChild = null;
@@ -16,8 +16,8 @@ public class LazyBinarySearchTree
             key = in_key;
         }
     }
-    private TreeNode root = null; // RETURN this to PRIVATE
-    public String ERROR_HOLDER = "";
+    private TreeNode root = null;
+    public String ERROR_HOLDER = ""; // String that holds any OPERATIONAL errors involving Lazy BST
     boolean insert(int key) throws IllegalArgumentException // Calls contains(key) to check if it EXISTS and NOT deleted
     {
         try
@@ -127,7 +127,7 @@ public class LazyBinarySearchTree
         return false;
     }
 
-    private boolean nodeDeletion(int key, TreeNode node) // TRUE if can be FLIPPED. False if
+    private boolean nodeDeletion(int key, TreeNode node) // TRUE if can be FLIPPED. False if NOT.
     {
         if(key < 1 || key > 99)
         {
@@ -160,7 +160,7 @@ public class LazyBinarySearchTree
         return false;
     }
 
-    public int findMin()
+    public int findMin() // Recursively go to left of each subtree until NULL.
     {
         if(root == null) // If BST is EMPTY
         {
@@ -256,7 +256,7 @@ public class LazyBinarySearchTree
     }
 
     @Override
-    public String toString()
+    public String toString() // Calls the preorderTraversal method to RECURSIVELY create a List that holds the values.
     {
         String Tree = "";
         List<String> temp = preorderTraversal(root);
@@ -288,7 +288,7 @@ public class LazyBinarySearchTree
         return temp;
     }
 
-    public int height()
+    public int height() // HEIGHT counts ROOT so subtract 1
     {
         return findHeight(root)-1;
     }
@@ -306,10 +306,10 @@ public class LazyBinarySearchTree
        {
            return leftNodeHeight;
        }
-       return rightNodeHeight;
+       return rightNodeHeight; // Same as < or EQUAL
     }
 
-    public int size()
+    public int size() // Recursively COUNT nodes.
     {
         return findSize(root);
     }

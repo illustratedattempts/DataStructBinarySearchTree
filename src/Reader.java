@@ -10,7 +10,7 @@ public class Reader
 
         String line;
 
-        while( (line = br.readLine() ) != null) //Regular Expression verification of A-Za-z followed by ':' and then two digits.
+        while( (line = br.readLine() ) != null)
         {
             if(line.contains("Insert:"))
             {
@@ -18,14 +18,15 @@ public class Reader
                 int key = Integer.parseInt(keyString);
 
                 boolean correct = tree.insert(key);
-
-                if(!tree.ERROR_HOLDER.isEmpty())
+                // APPLIES FOR: INSERT, DELETE, and CONTAINS operations
+                //------------------------------------------------------
+                if(!tree.ERROR_HOLDER.isEmpty()) // If ERROR_HOLDER is empty, then no errors present
                 {
                     wr.write(tree.ERROR_HOLDER);
                     wr.newLine();
                     tree.ERROR_HOLDER = "";
                 }
-                else if(correct)
+                else if(correct) // If NO ERRORS, we simply write True/False to the File
                 {
                     wr.write("True");
                     wr.newLine();
@@ -82,7 +83,7 @@ public class Reader
                     wr.newLine();
                 }
             }
-            else if(line.equals("PrintTree"))
+            else if(line.equals("PrintTree")) // APPLIES FOR: PrintTree, FindMin, FindMax, Height, and Size --- The Line must contain an EXACT match of that string, thus the use of .equals()
             {
                 wr.write(tree.toString());
                 wr.newLine();
@@ -111,12 +112,13 @@ public class Reader
                 wr.write(Integer.toString(size));
                 wr.newLine();
             }
-            else
+            else // No matching CMDs in file detected
             {
                 wr.write("Error in Line: " + line);
                 wr.newLine();
             }
         }
+        // Closer of BufferedWriter and BufferedReader
         br.close();
         wr.close();
     }
